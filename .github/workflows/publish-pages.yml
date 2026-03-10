@@ -31,10 +31,10 @@ jobs:
         run: |
           python ./scripts/generate_docs.py --from 115 --to 121 --keywords cyklo --created-from 2026-01-24
       # deploy the generated docs to gh-pages branch using a traditional action
-+      - name: Publish to gh-pages
-+        uses: peaceiris/actions-gh-pages@v3
-+        with:
-+          publish_dir: ./docs
-+          # use GITHUB_TOKEN to authenticate
-+          # Can also set a custom PAT if needed
-+          publish_branch: gh-pages
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./docs
+          # use GITHUB_TOKEN to authenticate
+          # Can also set a custom PAT if needed
+          publish_branch: gh-pages
