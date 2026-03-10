@@ -18,6 +18,40 @@ Run tests:
 
    pytest -q
 
+Run Edesky fetch (dashboards 115-121)
+
+1. Set your API key in the environment (PowerShell):
+
+   $env:EDESKY_API_KEY = "Rv5pKLg20UI1clhppns26ZOxvOg9MvEf"
+
+2. Run the CLI in edesky mode:
+
+   python -m aktivist_skrepr.cli --edesky --edesky-from 115 --edesky-to 121 --keywords cyklo --created-from 2026-01-24
+
+The script will print a simple table of found documents to the terminal.
+
+Publish results to GitHub Pages
+
+Two options:
+
+1) Manual: generate `docs/index.html` locally and push to the `main` branch. GitHub Pages can serve the `docs/` folder.
+
+   - Generate:
+
+       python .\scripts\generate_docs.py --from 115 --to 121 --keywords cyklo --created-from 2026-01-24
+
+   - Commit and push `docs/index.html` to `main` and enable Pages in repo Settings > Pages > Source: Deploy from a branch > `main`/`/docs`.
+
+2) Automatic: use the provided GitHub Action `publish-pages.yml` which runs on push and deploys `docs/` to Pages.
+
+   Steps to enable automatic publishing:
+   - Create a GitHub repo and push this project (see previous instructions).
+   - In GitHub repo settings, ensure GitHub Pages is enabled for the repository.
+   - Add a repository secret named `EDESKY_API_KEY` with your API key (Settings > Secrets and variables > Actions > New repository secret).
+   - Push to `main`/`master`. The workflow will run, generate `docs/index.html`, and publish it.
+
+
+
 Connecting to GitHub
 1. Initialize git, commit, and push to a new GitHub repo you create (or use the GitHub UI/gh CLI):
 
