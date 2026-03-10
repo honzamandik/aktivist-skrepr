@@ -23,7 +23,7 @@ jobs:
         run: |
           python ./scripts/generate_docs.py --from 115 --to 121 --keywords cyklo --created-from 2026-01-24
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./docs
       - name: Deploy to GitHub Pages
