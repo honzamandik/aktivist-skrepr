@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from aktivist_skrepr.edesky_client import fetch_documents_for_dashboard, fetch_dashboards, filter_dashboards_by_name
 
 OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "docs")
@@ -7,12 +7,49 @@ OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "docs")
 def ensure_out_dir():
     os.makedirs(OUT_DIR, exist_ok=True)
 
+from datetime import timedelta
+
+
+def parse_existing_results(path: str):
+    """Return (timestamp, set of (dashboard, edesky_id)) from existing HTML.
+    If file missing or parse fails, return (None, empty set)."""
+    old_set = set()
+    ts = None
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                if ts is None and "generated" in line:
+                    # look for iso timestamp
+                    import re, datetime
+                    m = re.search(r"generated (\d{4}-\d{2}-\d{2}T[0-9:.]+)Z", line)
+                    if m:
+                        ts = datetime.datetime.fromisoformat(m.group(1))
+                # rows contain <td>dashboard</td><td>edesky</td>
+                if "<tr>" in line and "<td>" in line:
+                    parts = [p for p in line.split("<td>") if "</td>" in p]
+                    if len(parts) >= 2:
+                        try:
+                            dash = int(parts[0].split("</td>")[0])
+                            eid = parts[1].split("</td>")[0]
+                            old_set.add((dash, eid))
+                        except ValueError:
+                            pass
+    except FileNotFoundError:
+        pass
+    return ts, old_set
+
+
 def generate(dash_from=115, dash_to=121, api_key=None, keywords="cyklo", created_from=None, name_filter=None):
     api_key = api_key or os.environ.get("EDESKY_API_KEY")
     if not api_key:
         raise SystemExit("Set EDESKY_API_KEY in environment or pass api_key to generate()")
     ensure_out_dir()
 
+    # determine created_from automatically if not provided
+    old_ts, old_entries = parse_existing_results(os.path.join(OUT_DIR, "index.html"))
+    if created_from is None and old_ts is not None:
+        new_from = (old_ts - timedelta(days=50)).date().isoformat()
+        created_from = new_from
     # determine dashboard ids to query
     if name_filter:
         all_dash = fetch_dashboards(api_key)
@@ -24,6 +61,9 @@ def generate(dash_from=115, dash_to=121, api_key=None, keywords="cyklo", created
     rows = []
     # collect results with dashboard metadata
     for did, dname in target_ids:
+        # skip hardcoded 59
+        if did == 59:
+            continue
         docs = fetch_documents_for_dashboard(did, api_key, keywords=keywords, created_from=created_from)
         for d in docs:
             rows.append({
@@ -40,7 +80,8 @@ def generate(dash_from=115, dash_to=121, api_key=None, keywords="cyklo", created
     out_path = os.path.normpath(os.path.join(OUT_DIR, "index.html"))
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("<!doctype html>\n<html><head><meta charset='utf-8'><title>Edesky results</title></head><body>")
-        f.write(f"<h1>Edesky results — generated {datetime.utcnow().isoformat()}Z</h1>\n")
+        # use timezone-aware UTC timestamp to avoid deprecation warnings
+        f.write(f"<h1>Edesky results — generated {datetime.now(timezone.utc).isoformat()}Z</h1>\n")
 
         # group by dashboard
         groups = {}
@@ -53,7 +94,11 @@ def generate(dash_from=115, dash_to=121, api_key=None, keywords="cyklo", created
             f.write("<tr><th>Created</th><th>Edesky ID</th><th>Title</th><th>Attachment</th><th>URL</th></tr>\n")
             # sort rows by created date string
             for r in sorted(groups[(did, dname)], key=lambda r: r['created_at']):
-                f.write("<tr>")
+                is_new = (did, r['edesky_id']) not in old_entries
+                if is_new:
+                    f.write('<tr style="font-weight:bold">')
+                else:
+                    f.write("<tr>")
                 f.write(f"<td>{r['created_at']}</td>")
                 f.write(f"<td>{r['edesky_id']}</td>")
                 f.write(f"<td>{r['title']}</td>")

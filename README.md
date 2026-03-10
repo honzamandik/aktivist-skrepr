@@ -46,9 +46,11 @@ Two options:
 
        # using the old fixed range
    python .\scripts\generate_docs.py --from 115 --to 121 --keywords cyklo --created-from 2026-01-24
+   # the script will automatically compute `--created-from` based on the last run if you omit it
 
    # instead, automatically use all dashboards whose name contains "Praha":
    python .\scripts\generate_docs.py --name-filter Praha --keywords cyklo --created-from 2026-01-24
+   # the generated HTML will bold any entries that were not present in the previous output
 
    - Commit and push `docs/index.html` to `main` and enable Pages in repo Settings > Pages > Source: Deploy from a branch > `main`/`/docs`.
 
