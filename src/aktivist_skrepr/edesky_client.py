@@ -67,17 +67,22 @@ def search_documents_page(dashboard_id: int, api_key: str, keywords: str = "cykl
 
     return docs_out, total_pages
 
+# list of warnings when pagination was encountered; generator can reference this
+pagination_warnings: list[tuple[int,int]] = []
+
 def fetch_documents_for_dashboard(dashboard_id: int, api_key: str, keywords: str = "cyklo", created_from: Optional[str] = None) -> List[Dict]:
-    """Fetch all pages for a dashboard and return a flat list of documents."""
-    page = 1
-    all_docs: List[Dict] = []
-    while True:
-        docs, total = search_documents_page(dashboard_id, api_key, keywords=keywords, page=page, created_from=created_from)
-        all_docs.extend(docs)
-        if page >= total:
-            break
-        page += 1
-    return all_docs
+    """Fetch documents for a dashboard.
+
+    * Only the first page is fetched; the API may return a `total` value but
+      pagination is currently disabled because some tokens are not authorized.
+    * Any time `total` is greater than 1 we append a warning to
+      :data:`pagination_warnings` and print a message.
+    """
+    docs, total = search_documents_page(dashboard_id, api_key, keywords=keywords, page=1, created_from=created_from)
+    if total > 1:
+        pagination_warnings.append((dashboard_id, total))
+        print(f"Warning: dashboard {dashboard_id} returned {total} pages; pagination disabled.")
+    return docs
 
 
 def fetch_dashboards(api_key: str) -> List[Dict]:

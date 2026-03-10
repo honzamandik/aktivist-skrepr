@@ -70,26 +70,8 @@ def test_cli_default_dashboard(monkeypatch, capsys):
     monkeypatch.setattr(cli, "fetch_documents_for_dashboard", fake_fetch)
 
     cli.main(["--edesky"])
-    assert len(calls) == 6
+    # two default keywords: cyklo and parkovani
+    assert len(calls) == 2
     assert all(did == 59 for (did, _kw) in calls)
     captured = capsys.readouterr().out
-    assert "cyklo" in captured and "opatreni" in captured
-
-
-def test_cli_default_dashboard(monkeypatch, capsys):
-    os.environ["EDESKY_API_KEY"] = "key"
-    # no dashboards returned
-    monkeypatch.setattr(cli, "fetch_dashboards", lambda api_key: [])
-    calls = []
-    def fake_fetch(did, api_key, keywords=None, created_from=None):
-        calls.append((did, keywords))
-        return []
-    monkeypatch.setattr(cli, "fetch_documents_for_dashboard", fake_fetch)
-
-    cli.main(["--edesky"])
-    # default call count should be number of keywords
-    assert len(calls) == 6
-    assert all(did == 59 for (did, _kw) in calls)
-    # generated header should mention default keywords
-    captured = capsys.readouterr().out
-    assert "cyklo" in captured and "opatreni" in captured
+    assert "cyklo" in captured and "parkovani" in captured

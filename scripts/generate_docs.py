@@ -47,7 +47,8 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
 
     # parse keywords into list; supply default set if none provided
     if keywords is None:
-        kw_list = ["cyklo", "opatreni", "uprava", "parkovani", "obousm", "eia"]
+        # reduced default set per user request
+        kw_list = ["cyklo", "parkovani"]
     elif isinstance(keywords, str):
         kw_list = [k.strip() for k in keywords.split(",") if k.strip()]
     else:
@@ -146,7 +147,15 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
                     f.write(f"<tr id=\"{row_id}\" style=\"display:none\"><td colspan=\"6\"><pre>{r['attachment_text']}</pre><br><button onclick=\"toggle('{row_id}')\">Back to table</button></td></tr>\n")
                 f.write("</tr>\n")
             f.write("</table>\n")
-        f.write("</body></html>")
+        f.write("</body>")
+        # insert pagination warning paragraph if any
+        from aktivist_skrepr import edesky_client
+        if edesky_client.pagination_warnings:
+            f.write("<p><strong>Note:</strong> pagination disabled for dashboards: ")
+            parts = [f"{did} ({total} pages)" for did, total in edesky_client.pagination_warnings]
+            f.write(", ".join(parts))
+            f.write(".</p>\n")
+        f.write("</html>")
     print(f"Wrote HTML to {out_path}")
 
 

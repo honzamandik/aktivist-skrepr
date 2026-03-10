@@ -11,8 +11,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser("aktivist-skrepr")
     parser.add_argument("--url", required=False, help="URL to fetch (not required for --edesky)")
     # default keywords include the core term plus additional Czech terms
-    parser.add_argument("--keywords", default="cyklo,opatreni,uprava,parkovani,obousm,eia",
-                        help="Comma-separated keywords (default: cyklo and related terms)")
+    parser.add_argument("--keywords", default="cyklo,parkovani",
+                        help="Comma-separated keywords (default: cyklo and parkovani)")
     parser.add_argument("--webhook", required=False, help="Webhook URL to post picked links")
 
     # Edesky mode flags

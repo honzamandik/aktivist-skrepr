@@ -124,12 +124,11 @@ def test_generate_default_keywords(monkeypatch, tmp_path):
     # call generate without args; defaults should use dashboard 59
     generate_docs.generate(api_key="key")
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
-    # default set should be in header title
-    assert "cyklo" in html and "opatreni" in html and "eia" in html
-    # ensure only dashboard 59 was requested and each keyword used
+    # default set should be in header title (cyklo, parkovani)
+    assert "cyklo" in html and "parkovani" in html
+    # ensure only dashboard 59 was requested and both keywords used
     kws = [kw for (_d, kw) in calls]
-    for kw in ["cyklo", "opatreni", "uprava", "parkovani", "obousm", "eia"]:
-        assert kw in kws
+    assert "cyklo" in kws and "parkovani" in kws
     assert all(did == 59 for (did, _kw) in calls)
 
 
@@ -153,3 +152,21 @@ def test_generate_with_text_attachment(monkeypatch, tmp_path):
     # should include toggle button and the text in hidden row
     assert "View" in html
     assert "hello world" in html
+
+
+def test_pagination_warning_display(monkeypatch, tmp_path):
+    # simulate a dashboard returning multiple pages
+    generate_docs.OUT_DIR = str(tmp_path)
+    monkeypatch.setattr(generate_docs, "fetch_dashboards", lambda key: [])
+    monkeypatch.setattr(generate_docs, "filter_dashboards_by_name", lambda d, nf: [])
+    # monkeypatch client to append warning
+    from aktivist_skrepr import edesky_client
+    edesky_client.pagination_warnings.clear()
+    def fake_fetch(did, api_key, keywords=None, created_from=None):
+        # mimic client behaviour: add warning entry
+        edesky_client.pagination_warnings.append((did, 3))
+        return []
+    monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
+    generate_docs.generate(dash_from=59, dash_to=59, api_key="key")
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "pagination disabled" in html
