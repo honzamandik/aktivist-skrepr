@@ -139,7 +139,8 @@ if __name__ == "__main__":
                         help="Start dashboard id (ignored if --name-filter is provided)")
     parser.add_argument("--to", dest="dash_to", type=int, default=121,
                         help="End dashboard id (inclusive)")
-    parser.add_argument("--keywords", default="cyklo")
+    parser.add_argument("--keywords", default=None,
+                        help="Comma-separated keywords; defaults to a built-in list")
     parser.add_argument("--created-from", dest="created_from", default=None)
     parser.add_argument("--api-key", dest="api_key", default=None)
     parser.add_argument("--name-filter", dest="name_filter", default=None,

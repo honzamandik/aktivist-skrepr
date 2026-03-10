@@ -35,8 +35,10 @@ Run Edesky fetch (dashboards 115-121)
    python -m aktivist_skrepr.cli --edesky --edesky-from 115 --edesky-to 121 --keywords cyklo --created-from 2026-01-24
 
    # keyword list can include multiple items; by default the script searches
-   # for "cyklo,opatreni,uprava,parkovani,obousm,eia".  Each keyword is used
-   # in a separate API request and the results are merged without duplicates.
+   # for "cyklo,opatreni,uprava,parkovani,obousm,eia".  When you omit the
+   # `--keywords` argument entirely the generator still uses this built‑in set.
+   # Each keyword is used in a separate API request and the results are merged
+   # without duplicates.
 
    # or automatically select dashboards whose name contains a substring:
    python -m aktivist_skrepr.cli --edesky --dashboard-name-filter Praha --keywords cyklo

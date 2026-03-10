@@ -111,3 +111,24 @@ def test_generate_keywords_multiple(monkeypatch, tmp_path):
     assert html.count("dup") == 1
     # title should list both keywords
     assert "(a, b)" in html
+
+
+def test_generate_default_keywords(monkeypatch, tmp_path):
+    # ensure that omitting keywords uses built-in list
+    generate_docs.OUT_DIR = str(tmp_path)
+    monkeypatch.setattr(generate_docs, "fetch_dashboards", lambda key: [])
+    monkeypatch.setattr(generate_docs, "filter_dashboards_by_name", lambda d, nf: [])
+    calls = []
+    def fake_fetch(did, api_key, keywords=None, created_from=None):
+        calls.append(keywords)
+        return []
+    monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
+
+    # call generate without keywords argument
+    generate_docs.generate(dash_from=115, dash_to=115, api_key="key")
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # default set should be in header title
+    assert "cyklo" in html and "opatreni" in html and "eia" in html
+    # ensure fake_fetch was called with each default keyword
+    for kw in ["cyklo", "opatreni", "uprava", "parkovani", "obousm", "eia"]:
+        assert kw in calls
