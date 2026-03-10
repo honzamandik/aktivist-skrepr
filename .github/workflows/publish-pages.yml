@@ -29,8 +29,9 @@ jobs:
         env:
           EDESKY_API_KEY: ${{ secrets.EDESKY_API_KEY }}
         run: |
-          # automatic dashboard selection by name containing "Praha"
-          python ./scripts/generate_docs.py --name-filter Praha --keywords cyklo --created-from 2026-01-24
+          # automatic dashboard selection by name containing "Praha"; the script will auto-determine a reasonable
+          # `--created-from` date based on the previously generated results, so we omit it here.
+          python ./scripts/generate_docs.py --name-filter Praha --keywords cyklo
       # deploy the generated docs to gh-pages branch using a traditional action
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v3
