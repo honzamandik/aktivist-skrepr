@@ -1,0 +1,34 @@
+import os
+import pytest
+from aktivist_skrepr import cli
+
+class Dummy:
+    def __init__(self, dashboard, edesky_id, created_at, name, url):
+        self.attrib = {
+            "dashboard": dashboard,
+            "edesky_id": edesky_id,
+            "created_at": created_at,
+            "name": name,
+            "edesky_url": url,
+        }
+        self.attrib = self.attrib
+
+
+def test_cli_edesky_name_filter(monkeypatch, capsys):
+    # Setup environment variable
+    os.environ["EDESKY_API_KEY"] = "key"
+
+    # fake dashboards list
+    fake_dashboards = [{"edesky_id": "1", "name": "Praha One"}, {"edesky_id": "2", "name": "Brno"}]
+    monkeypatch.setattr(cli, "fetch_dashboards", lambda api_key: fake_dashboards)
+
+    # fake documents for id 1
+    monkeypatch.setattr(cli, "fetch_documents_for_dashboard", lambda did, api_key, keywords=None, created_from=None: [
+        {"edesky_id": "doc1", "created_at": "2026-01-01", "name": "Title", "edesky_url": "url", "attachments": []}
+    ] if did == 1 else [])
+
+    # capture output
+    cli.main(["--edesky", "--dashboard-name-filter", "Praha"])
+    captured = capsys.readouterr().out
+    assert "Edesky results" in captured
+    assert "1 | doc1" in captured

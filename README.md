@@ -31,6 +31,9 @@ Run Edesky fetch (dashboards 115-121)
 
    python -m aktivist_skrepr.cli --edesky --edesky-from 115 --edesky-to 121 --keywords cyklo --created-from 2026-01-24
 
+   # or automatically select dashboards whose name contains a substring:
+   python -m aktivist_skrepr.cli --edesky --dashboard-name-filter Praha --keywords cyklo
+
 The script will print a simple table of found documents to the terminal.
 
 Publish results to GitHub Pages
@@ -41,7 +44,11 @@ Two options:
 
    - Generate:
 
-       python .\scripts\generate_docs.py --from 115 --to 121 --keywords cyklo --created-from 2026-01-24
+       # using the old fixed range
+   python .\scripts\generate_docs.py --from 115 --to 121 --keywords cyklo --created-from 2026-01-24
+
+   # instead, automatically use all dashboards whose name contains "Praha":
+   python .\scripts\generate_docs.py --name-filter Praha --keywords cyklo --created-from 2026-01-24
 
    - Commit and push `docs/index.html` to `main` and enable Pages in repo Settings > Pages > Source: Deploy from a branch > `main`/`/docs`.
 

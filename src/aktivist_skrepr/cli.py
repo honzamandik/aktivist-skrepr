@@ -4,7 +4,7 @@ from textwrap import shorten
 from .fetcher import fetch_url
 from .filterer import extract_links, filter_links_by_keywords
 from .uploader import post_to_webhook
-from .edesky_client import fetch_documents_for_dashboard
+from .edesky_client import fetch_documents_for_dashboard, fetch_dashboards, filter_dashboards_by_name
 
 
 def main(argv=None):
@@ -18,6 +18,7 @@ def main(argv=None):
     parser.add_argument("--edesky-from", dest="edesky_from", type=int, default=115, help="Start dashboard id (inclusive)")
     parser.add_argument("--edesky-to", dest="edesky_to", type=int, default=121, help="End dashboard id (inclusive)")
     parser.add_argument("--created-from", dest="created_from", default=None, help="created_from date YYYY-MM-DD")
+    parser.add_argument("--dashboard-name-filter", dest="name_filter", default=None, help="Substring to choose dashboards by name (e.g. Praha)")
 
     args = parser.parse_args(argv)
 
@@ -26,7 +27,12 @@ def main(argv=None):
         if not api_key:
             print("Set EDESKY_API_KEY in environment to use edesky mode")
             return
-        dashboards = list(range(args.edesky_from, args.edesky_to + 1))
+        if args.name_filter:
+            all_dash = fetch_dashboards(api_key)
+            matched = filter_dashboards_by_name(all_dash, args.name_filter)
+            dashboards = [int(d.get("edesky_id")) for d in matched]
+        else:
+            dashboards = list(range(args.edesky_from, args.edesky_to + 1))
         rows = []
         for did in dashboards:
             docs = fetch_documents_for_dashboard(did, api_key, keywords=args.keywords, created_from=args.created_from)
@@ -37,6 +43,8 @@ def main(argv=None):
                 url = d.get("edesky_url") or ""
                 first_att = (d.get("attachments") or [])[0].get("name") if d.get("attachments") else ""
                 rows.append((did, edesky_id, created, shorten(title, width=50), first_att, url))
+        # sort by dashboard then created
+        rows.sort(key=lambda r: (r[0], r[2]))
 
         # print ascii table
         print("\nEdesky results")
