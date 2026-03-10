@@ -8,6 +8,9 @@ Quick start
 
    .\scripts\setup_env.ps1
 
+   # optionally install the package into the environment for CLI use
+   pip install -e .
+
 3. Create a `.env` file (see `.env.sample`) and set any credentials (Google service account path, webhook URL).
 
 Run the CLI on a single URL:

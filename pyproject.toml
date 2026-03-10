@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=60.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aktivist_skrepr"
+version = "0.1.0"
+description = "Fetches documents from eDesky API and publishes results."
+authors = [
+    { name = "Your Name", email = "you@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+
+# dependencies mirror requirements.txt
+dependencies = [
+    "requests",
+    "beautifulsoup4",
+    "python-dotenv",
+    "gspread",
+    "oauth2client",
+    "pytest",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["aktivist_skrepr*"]
+
+[project.urls]
+homepage = "https://github.com/honzamandik/aktivist-skrepr"
+repository = "https://github.com/honzamandik/aktivist-skrepr"
+
