@@ -82,3 +82,32 @@ def test_generate_name_filter(monkeypatch, tmp_path):
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     assert "Dashboard 1 Praha" in html
     assert "x" in html
+
+
+def test_generate_keywords_multiple(monkeypatch, tmp_path):
+    generate_docs.OUT_DIR = str(tmp_path)
+    # override dashboards to single id
+    base_dash = (115, "")
+    monkeypatch.setattr(generate_docs, "fetch_dashboards", lambda key: [])
+    monkeypatch.setattr(generate_docs, "filter_dashboards_by_name", lambda d, nf: [])
+
+    calls = []
+    def fake_fetch(did, api_key, keywords=None, created_from=None):
+        calls.append(keywords)
+        if keywords == "a":
+            return [{"edesky_id": "dup", "created_at": "2026-03-01", "name": "foo", "edesky_url": "u", "attachments": []}]
+        if keywords == "b":
+            return [{"edesky_id": "dup", "created_at": "2026-03-02", "name": "bar", "edesky_url": "u2", "attachments": []}]
+        return []
+    monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
+
+    # call generate with explicit keywords list
+    generate_docs.generate(dash_from=115, dash_to=115, api_key="key", keywords="a,b")
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # ensure both keywords were requested
+    assert "a" in ''.join(calls)
+    assert "b" in ''.join(calls)
+    # duplicate id should only appear once in table
+    assert html.count("dup") == 1
+    # title should list both keywords
+    assert "(a, b)" in html

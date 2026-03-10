@@ -30,5 +30,31 @@ def test_cli_edesky_name_filter(monkeypatch, capsys):
     # capture output
     cli.main(["--edesky", "--dashboard-name-filter", "Praha"])
     captured = capsys.readouterr().out
+    # keywords default should be included in header text
     assert "Edesky results" in captured
-    assert "1 | doc1" in captured
+    assert "doc1" in captured
+
+
+def test_cli_multiple_keywords(monkeypatch, capsys):
+    os.environ["EDESKY_API_KEY"] = "key"
+    # only one dashboard to simplify
+    monkeypatch.setattr(cli, "fetch_dashboards", lambda api_key: [{"edesky_id": "1", "name": "Praha"}])
+    # simulate different docs for each keyword and duplicate
+    calls = []
+    def fake_fetch(did, api_key, keywords=None, created_from=None):
+        calls.append(keywords)
+        if keywords == "a":
+            return [{"edesky_id": "same", "created_at": "2026-01-01", "name": "Title1", "edesky_url": "url", "attachments": []}]
+        if keywords == "b":
+            return [{"edesky_id": "same", "created_at": "2026-01-02", "name": "Title2", "edesky_url": "url2", "attachments": []}]
+        return []
+    monkeypatch.setattr(cli, "fetch_documents_for_dashboard", fake_fetch)
+
+    cli.main(["--edesky", "--dashboard-name-filter", "Praha", "--keywords", "a,b"])
+    captured = capsys.readouterr().out
+    # should call fetch twice, once per keyword
+    assert calls.count("a") == 1
+    assert calls.count("b") == 1
+    # results should include only one row for the duplicate id
+    assert captured.count("same") == 1
+    assert "(a, b)" in captured

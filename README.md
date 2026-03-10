@@ -17,6 +17,9 @@ Run the CLI on a single URL:
 
    python -m aktivist_skrepr.cli --url "https://example.com" --keywords "climate,policy" --webhook "https://example.org/webhook"
 
+   # the `--keywords` flag now accepts a comma-separated list; the default set
+   # includes: cyklo, opatreni, uprava, parkovani, obousm, eia
+
 Run tests:
 
    pytest -q
@@ -30,6 +33,10 @@ Run Edesky fetch (dashboards 115-121)
 2. Run the CLI in edesky mode:
 
    python -m aktivist_skrepr.cli --edesky --edesky-from 115 --edesky-to 121 --keywords cyklo --created-from 2026-01-24
+
+   # keyword list can include multiple items; by default the script searches
+   # for "cyklo,opatreni,uprava,parkovani,obousm,eia".  Each keyword is used
+   # in a separate API request and the results are merged without duplicates.
 
    # or automatically select dashboards whose name contains a substring:
    python -m aktivist_skrepr.cli --edesky --dashboard-name-filter Praha --keywords cyklo

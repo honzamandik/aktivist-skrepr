@@ -39,11 +39,19 @@ def parse_existing_results(path: str):
     return ts, old_set
 
 
-def generate(dash_from=115, dash_to=121, api_key=None, keywords="cyklo", created_from=None, name_filter=None):
+def generate(dash_from=115, dash_to=121, api_key=None, keywords=None, created_from=None, name_filter=None):
     api_key = api_key or os.environ.get("EDESKY_API_KEY")
     if not api_key:
         raise SystemExit("Set EDESKY_API_KEY in environment or pass api_key to generate()")
     ensure_out_dir()
+
+    # parse keywords into list; supply default set if none provided
+    if keywords is None:
+        kw_list = ["cyklo", "opatreni", "uprava", "parkovani", "obousm", "eia"]
+    elif isinstance(keywords, str):
+        kw_list = [k.strip() for k in keywords.split(",") if k.strip()]
+    else:
+        kw_list = list(keywords)
 
     # determine created_from automatically if not provided
     old_ts, old_entries = parse_existing_results(os.path.join(OUT_DIR, "index.html"))
@@ -59,29 +67,43 @@ def generate(dash_from=115, dash_to=121, api_key=None, keywords="cyklo", created
         target_ids = [(i, f"") for i in range(dash_from, dash_to + 1)]
 
     rows = []
+    seen = set()
     # collect results with dashboard metadata
     for did, dname in target_ids:
         # skip hardcoded 59
         if did == 59:
             continue
-        docs = fetch_documents_for_dashboard(did, api_key, keywords=keywords, created_from=created_from)
-        for d in docs:
-            rows.append({
-                "dashboard": did,
-                "dashboard_name": dname,
-                "edesky_id": d.get("edesky_id", ""),
-                "created_at": d.get("created_at", ""),
-                "title": d.get("name", ""),
-                "url": d.get("edesky_url", ""),
-                "attachment": (d.get("attachments") or [])[0].get("name") if d.get("attachments") else "",
-            })
+        for kw in kw_list:
+            docs = fetch_documents_for_dashboard(did, api_key, keywords=kw, created_from=created_from)
+            for d in docs:
+                key = (did, d.get("edesky_id", ""))
+                if key in seen:
+                    continue
+                seen.add(key)
+                rows.append({
+                    "dashboard": did,
+                    "dashboard_name": dname,
+                    "edesky_id": d.get("edesky_id", ""),
+                    "created_at": d.get("created_at", ""),
+                    "title": d.get("name", ""),
+                    "url": d.get("edesky_url", ""),
+                    "attachment": (d.get("attachments") or [])[0].get("name") if d.get("attachments") else "",
+                })
 
     # write grouped HTML
     out_path = os.path.normpath(os.path.join(OUT_DIR, "index.html"))
+    # prepare a human-readable keywords string for the header
+    kw_title = ", ".join(kw_list)
     with open(out_path, "w", encoding="utf-8") as f:
-        f.write("<!doctype html>\n<html><head><meta charset='utf-8'><title>Edesky results</title></head><body>")
+        f.write("<!doctype html>\n<html><head><meta charset='utf-8'><title>Edesky results")
+        if kw_title:
+            f.write(f" ({kw_title})")
+        f.write("</title></head><body>")
         # use timezone-aware UTC timestamp to avoid deprecation warnings
-        f.write(f"<h1>Edesky results — generated {datetime.now(timezone.utc).isoformat()}Z</h1>\n")
+        f.write(f"<h1>Edesky results")
+        if kw_title:
+            f.write(f" ({kw_title})")
+        f.write(f" — generated {datetime.now(timezone.utc).isoformat()}Z</h1>\n")
 
         # group by dashboard
         groups = {}
