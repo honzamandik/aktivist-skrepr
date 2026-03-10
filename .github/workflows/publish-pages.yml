@@ -35,6 +35,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: ./docs
-          # use GITHUB_TOKEN to authenticate
-          # Can also set a custom PAT if needed
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # use GITHUB_TOKEN to authenticate (default)
+          # Can also set a custom PAT by providing a different secret
           publish_branch: gh-pages
