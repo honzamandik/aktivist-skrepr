@@ -24,15 +24,15 @@ Run tests:
 
    pytest -q
 
-Run Edesky fetch (dashboards 115-121)
+Run Edesky fetch (default dashboard 59)
 
 1. Set your API key in the environment (PowerShell):
 
    $env:EDESKY_API_KEY = "Rv5pKLg20UI1clhppns26ZOxvOg9MvEf"
 
-2. Run the CLI in edesky mode:
+2. Run the CLI in edesky mode (defaults to ID 59 only):
 
-   python -m aktivist_skrepr.cli --edesky --edesky-from 115 --edesky-to 121 --keywords cyklo --created-from 2026-01-24
+   python -m aktivist_skrepr.cli --edesky --keywords cyklo --created-from 2026-01-24
 
    # keyword list can include multiple items; by default the script searches
    # for "cyklo,opatreni,uprava,parkovani,obousm,eia".  When you omit the
@@ -43,7 +43,7 @@ Run Edesky fetch (dashboards 115-121)
    # or automatically select dashboards whose name contains a substring:
    python -m aktivist_skrepr.cli --edesky --dashboard-name-filter Praha --keywords cyklo
 
-The script will print a simple table of found documents to the terminal.
+The script will print a simple table of found documents to the terminal.  For dashboard‑59 results (default) the generator will also request full texts from the API (`show_texts=1`), and the published HTML includes a "View" button that displays the attachment text inline if available.
 
 Publish results to GitHub Pages
 

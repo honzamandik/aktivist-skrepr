@@ -17,8 +17,8 @@ def main(argv=None):
 
     # Edesky mode flags
     parser.add_argument("--edesky", action="store_true", help="Use Edesky API mode")
-    parser.add_argument("--edesky-from", dest="edesky_from", type=int, default=115, help="Start dashboard id (inclusive)")
-    parser.add_argument("--edesky-to", dest="edesky_to", type=int, default=121, help="End dashboard id (inclusive)")
+    parser.add_argument("--edesky-from", dest="edesky_from", type=int, default=59, help="Start dashboard id (inclusive)")
+    parser.add_argument("--edesky-to", dest="edesky_to", type=int, default=59, help="End dashboard id (inclusive)")
     parser.add_argument("--created-from", dest="created_from", default=None, help="created_from date YYYY-MM-DD")
     parser.add_argument("--dashboard-name-filter", dest="name_filter", default=None, help="Substring to choose dashboards by name (e.g. Praha)")
 

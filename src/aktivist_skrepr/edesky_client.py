@@ -12,7 +12,8 @@ def _build_params(keywords: str, api_key: str, dashboard_id: int, page: int = 1,
         "search_with": "sql",
         "api_key": api_key,
         "dashboard_id": str(dashboard_id),
-        "include_texts": "1",
+        # use show_texts param as required by the new endpoint
+        "show_texts": "1",
         "order": "date",
         "page": str(page),
         "format": "xml",
@@ -48,12 +49,18 @@ def search_documents_page(dashboard_id: int, api_key: str, keywords: str = "cykl
 
     for doc in documents.findall("document"):
         d = dict(doc.attrib)
-        # attachments
+        # attachments (may include percent-encoded text inside element)
         atts = []
         att_block = doc.find("attachments")
         if att_block is not None:
             for a in att_block.findall("attachment"):
                 att = dict(a.attrib)
+                # capture any inner text and decode it
+                raw = a.text or ""
+                if raw:
+                    from urllib.parse import unquote_plus
+                    att_text = unquote_plus(raw)
+                    att["text"] = att_text
                 atts.append(att)
         d["attachments"] = atts
         docs_out.append(d)

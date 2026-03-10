@@ -23,7 +23,7 @@ def test_parse_existing_results(tmp_path):
     assert entries == {(115, "abc")}
 
 
-def test_generate_marks_new_entries_and_skips_59(monkeypatch, tmp_path):
+def test_generate_marks_new_entries(monkeypatch, tmp_path):
     # override output directory
     generate_docs.OUT_DIR = str(tmp_path)
 
@@ -42,12 +42,8 @@ def test_generate_marks_new_entries_and_skips_59(monkeypatch, tmp_path):
                 {"edesky_id": "old", "created_at": "2026-01-05", "name": "a", "edesky_url": "u", "attachments": []},
                 {"edesky_id": "new", "created_at": "2026-01-06", "name": "b", "edesky_url": "u2", "attachments": []},
             ]
-        elif did == 116:
+        else:
             return []
-        elif did == 59:
-            # should not be called at all
-            pytest.fail("fetch_documents_for_dashboard called for skipped id 59")
-        return []
 
     monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
 
@@ -59,8 +55,9 @@ def test_generate_marks_new_entries_and_skips_59(monkeypatch, tmp_path):
     assert "old" in html
     assert "new" in html
     assert "<tr style=\"font-weight:bold\">" in html
-    # ensure skip of 59 happened by inspecting calls
-    assert 59 not in calls
+    # ensure 59 was requested along with 115
+    assert 59 in calls
+    assert 115 in calls
 
 
 def test_generate_name_filter(monkeypatch, tmp_path):
@@ -120,15 +117,39 @@ def test_generate_default_keywords(monkeypatch, tmp_path):
     monkeypatch.setattr(generate_docs, "filter_dashboards_by_name", lambda d, nf: [])
     calls = []
     def fake_fetch(did, api_key, keywords=None, created_from=None):
-        calls.append(keywords)
+        calls.append((did, keywords))
         return []
     monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
 
-    # call generate without keywords argument
-    generate_docs.generate(dash_from=115, dash_to=115, api_key="key")
+    # call generate without args; defaults should use dashboard 59
+    generate_docs.generate(api_key="key")
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     # default set should be in header title
     assert "cyklo" in html and "opatreni" in html and "eia" in html
-    # ensure fake_fetch was called with each default keyword
+    # ensure only dashboard 59 was requested and each keyword used
+    kws = [kw for (_d, kw) in calls]
     for kw in ["cyklo", "opatreni", "uprava", "parkovani", "obousm", "eia"]:
-        assert kw in calls
+        assert kw in kws
+    assert all(did == 59 for (did, _kw) in calls)
+
+
+def test_generate_with_text_attachment(monkeypatch, tmp_path):
+    generate_docs.OUT_DIR = str(tmp_path)
+    monkeypatch.setattr(generate_docs, "fetch_dashboards", lambda key: [])
+    monkeypatch.setattr(generate_docs, "filter_dashboards_by_name", lambda d, nf: [])
+    # provide a document with attachment containing text
+    def fake_fetch(did, api_key, keywords=None, created_from=None):
+        return [{
+            "edesky_id": "1",
+            "created_at": "2026-03-10",
+            "name": "Doc",
+            "edesky_url": "u",
+            "attachments": [{"name": "att", "text": "hello world"}],
+        }]
+    monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
+
+    generate_docs.generate(dash_from=59, dash_to=59, api_key="key")
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # should include toggle button and the text in hidden row
+    assert "View" in html
+    assert "hello world" in html
