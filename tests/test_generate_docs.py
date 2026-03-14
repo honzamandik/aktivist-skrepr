@@ -108,6 +108,8 @@ def test_generate_keywords_multiple(monkeypatch, tmp_path):
     assert html.count("dup") == 1
     # title should list both keywords
     assert "(a, b)" in html
+    # found keywords column should include each keyword we searched
+    assert "a" in html and "b" in html
 
 
 def test_generate_default_keywords(monkeypatch, tmp_path):
@@ -141,15 +143,17 @@ def test_generate_with_text_attachment(monkeypatch, tmp_path):
             "created_at": "2026-03-10",
             "name": "Doc",
             "edesky_url": "u",
-            "attachments": [{"name": "att", "text": "hello world"}],
+            "attachments": [{"name": "att", "text": "Cyklopruh a cyklo"}],
         }]
     monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
 
-    generate_docs.generate(dash_from=60, dash_to=60, api_key="key")
+    generate_docs.generate(dash_from=60, dash_to=60, api_key="key", keywords="cyklo")
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     # should include toggle button and the text in hidden row
-    assert "View" in html
-    assert "hello world" in html
+    assert "Zobrazit" in html
+    # should detect cycling relevance from text and mark keywords
+    assert "true" in html
+    assert "<mark>cyklo</mark>" in html
 
 
 def test_pagination_warning_display(monkeypatch, tmp_path):
