@@ -157,9 +157,7 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
                     f.write("<tr>")
 
                 found_keywords = sorted(r.get('found_keywords', []))
-                found_text_keywords = sorted(r.get('found_text_keywords', []))
                 found_text = ", ".join(found_keywords)
-                found_text_terms = ", ".join(found_text_keywords)
                 # determine cycling relevance from text/title
                 text_to_check = " ".join([r.get('title', ''), r.get('attachment_text', '')]).lower()
                 cycling_terms = [
@@ -170,6 +168,7 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
                     "is20 návěst před křižovatkou pro cyklisty", "is21 směrová tabulka pro cyklisty", "is22 směrová tabulka pro cyklisty"
                 ]
                 found_text_keywords = [term for term in cycling_terms if term in text_to_check]
+                found_text_terms = ", ".join(found_text_keywords)
                 cycling_relevant = len(found_text_keywords) > 0
 
                 f.write(f"<td>{escape_html(r['created_at'])}</td>")
