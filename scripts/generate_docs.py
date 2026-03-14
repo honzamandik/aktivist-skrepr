@@ -17,23 +17,22 @@ def parse_existing_results(path: str):
     ts = None
     try:
         with open(path, encoding="utf-8") as f:
-            for line in f:
-                if ts is None and "generated" in line:
-                    # look for iso timestamp
-                    import re, datetime
-                    m = re.search(r"generated (\d{4}-\d{2}-\d{2}T[0-9:.]+)Z", line)
-                    if m:
-                        ts = datetime.datetime.fromisoformat(m.group(1))
-                # rows contain <td>dashboard</td><td>edesky</td>
-                if "<tr>" in line and "<td>" in line:
-                    parts = [p for p in line.split("<td>") if "</td>" in p]
-                    if len(parts) >= 2:
-                        try:
-                            dash = int(parts[0].split("</td>")[0])
-                            eid = parts[1].split("</td>")[0]
-                            old_set.add((dash, eid))
-                        except ValueError:
-                            pass
+            text = f.read()
+        import re
+        # parse generated timestamp from header
+        m = re.search(r"generated (\d{4}-\d{2}-\d{2}T[0-9:.]+)Z", text)
+        if m:
+            ts = datetime.fromisoformat(m.group(1))
+        # find all table rows and collect first two td values
+        for row in re.findall(r"<tr[^>]*>(.*?)</tr>", text, flags=re.S | re.I):
+            cells = re.findall(r"<td>(.*?)</td>", row, flags=re.S | re.I)
+            if len(cells) >= 2:
+                try:
+                    dash = int(re.sub(r"\D", "", cells[0]))
+                    eid = cells[1].strip()
+                    old_set.add((dash, eid))
+                except ValueError:
+                    continue
     except FileNotFoundError:
         pass
     return ts, old_set
@@ -57,7 +56,7 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
     # determine created_from automatically if not provided
     old_ts, old_entries = parse_existing_results(os.path.join(OUT_DIR, "index.html"))
     if created_from is None and old_ts is not None:
-        new_from = (old_ts - timedelta(days=50)).date().isoformat()
+        new_from = (old_ts - timedelta(days=30)).date().isoformat()
         created_from = new_from
     # determine dashboard ids to query
     if name_filter:
@@ -145,7 +144,6 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
                 # hidden text row
                 if r.get('attachment_text'):
                     f.write(f"<tr id=\"{row_id}\" style=\"display:none\"><td colspan=\"6\"><pre>{r['attachment_text']}</pre><br><button onclick=\"toggle('{row_id}')\">Back to table</button></td></tr>\n")
-                f.write("</tr>\n")
             f.write("</table>\n")
         f.write("</body>")
         # insert pagination warning paragraph if any
