@@ -20,7 +20,7 @@ def test_parse_existing_results(tmp_path):
     ts, entries = generate_docs.parse_existing_results(str(path))
     assert ts is not None
     assert ts.isoformat().startswith("2024-01-01T12:00:00")
-    assert entries == {(115, "abc")}
+    assert entries == {"abc"}
 
 
 def test_generate_marks_new_entries(monkeypatch, tmp_path):
@@ -55,8 +55,8 @@ def test_generate_marks_new_entries(monkeypatch, tmp_path):
     assert "old" in html
     assert "new" in html
     assert "<tr style=\"font-weight:bold\">" in html
-    # ensure 59 was requested along with 115
-    assert 59 in calls
+    # ensure 59 was skipped
+    assert 59 not in calls
     assert 115 in calls
 
 
@@ -124,12 +124,10 @@ def test_generate_default_keywords(monkeypatch, tmp_path):
     # call generate without args; defaults should use dashboard 59
     generate_docs.generate(api_key="key")
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
-    # default set should be in header title (cyklo, parkovani)
-    assert "cyklo" in html and "parkovani" in html
-    # ensure only dashboard 59 was requested and both keywords used
-    kws = [kw for (_d, kw) in calls]
-    assert "cyklo" in kws and "parkovani" in kws
-    assert all(did == 59 for (did, _kw) in calls)
+    # default set should be in header title (cyklo, navrh)
+    assert "cyklo" in html and "navrh" in html
+    # dashboard 59 is skipped, so there should be no fetch calls
+    assert calls == []
 
 
 def test_generate_with_text_attachment(monkeypatch, tmp_path):
@@ -147,7 +145,7 @@ def test_generate_with_text_attachment(monkeypatch, tmp_path):
         }]
     monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
 
-    generate_docs.generate(dash_from=59, dash_to=59, api_key="key")
+    generate_docs.generate(dash_from=60, dash_to=60, api_key="key")
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     # should include toggle button and the text in hidden row
     assert "View" in html
@@ -167,6 +165,6 @@ def test_pagination_warning_display(monkeypatch, tmp_path):
         edesky_client.pagination_warnings.append((did, 3))
         return []
     monkeypatch.setattr(generate_docs, "fetch_documents_for_dashboard", fake_fetch)
-    generate_docs.generate(dash_from=59, dash_to=59, api_key="key")
+    generate_docs.generate(dash_from=60, dash_to=60, api_key="key")
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     assert "pagination disabled" in html

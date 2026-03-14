@@ -11,7 +11,7 @@ from datetime import timedelta
 
 
 def parse_existing_results(path: str):
-    """Return (timestamp, set of (dashboard, edesky_id)) from existing HTML.
+    """Return (timestamp, set of edesky IDs) from existing HTML.
     If file missing or parse fails, return (None, empty set)."""
     old_set = set()
     ts = None
@@ -23,16 +23,13 @@ def parse_existing_results(path: str):
         m = re.search(r"generated (\d{4}-\d{2}-\d{2}T[0-9:.]+)Z", text)
         if m:
             ts = datetime.fromisoformat(m.group(1))
-        # find all table rows and collect first two td values
+        # find all table rows and collect Edesky IDs from second <td>
         for row in re.findall(r"<tr[^>]*>(.*?)</tr>", text, flags=re.S | re.I):
             cells = re.findall(r"<td>(.*?)</td>", row, flags=re.S | re.I)
             if len(cells) >= 2:
-                try:
-                    dash = int(re.sub(r"\D", "", cells[0]))
-                    eid = cells[1].strip()
-                    old_set.add((dash, eid))
-                except ValueError:
-                    continue
+                eid = cells[1].strip()
+                if eid:
+                    old_set.add(eid)
     except FileNotFoundError:
         pass
     return ts, old_set
@@ -70,6 +67,9 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
     seen = set()
     # collect results with dashboard metadata
     for did, dname in target_ids:
+        # skip dashboard 59 per user request
+        if did == 59:
+            continue
         for kw in kw_list:
             docs = fetch_documents_for_dashboard(did, api_key, keywords=kw, created_from=created_from)
             for d in docs:
@@ -124,7 +124,7 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
             f.write("<tr><th>Created</th><th>Edesky ID</th><th>Title</th><th>Attachment</th><th>Text</th><th>URL</th></tr>\n")
             # sort rows by created date string
             for r in sorted(groups[(did, dname)], key=lambda r: r['created_at']):
-                is_new = (did, r['edesky_id']) not in old_entries
+                is_new = r['edesky_id'] not in old_entries
                 if is_new:
                     f.write('<tr style="font-weight:bold">')
                 else:
