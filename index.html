@@ -1,8 +1,8 @@
 <!doctype html>
-<html><head><meta charset='utf-8'><title>Edesky results (cyklo, navrh)</title><script>function toggle(id){var e=document.getElementById(id);if(e.style.display=='none'){e.style.display='table-row';}else{e.style.display='none';}}</script></head><body><h1>Edesky results (cyklo, navrh) — generated 2026-03-14T19:40:02.501263+00:00Z</h1>
-<h2>Dashboard 109 Praha 1</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<html><head><meta charset='utf-8'><title>Edesky results (cyklo, navrh)</title><script>function toggle(id){var e=document.getElementById(id);if(e.style.display=='none'){e.style.display='table-row';}else{e.style.display='none';}}function sortTable(tableId,col){var table=document.getElementById(tableId);var tbody=table.tBodies[0];var rows=Array.from(tbody.rows).filter(r=>!r.classList.contains('hidden-text'));var asc=table.dataset.asc==='true'?false:true;rows.sort((a,b)=>{var x=a.cells[col].innerText.trim().toLowerCase();var y=b.cells[col].innerText.trim().toLowerCase();var xn=parseFloat(x.replace(/[^0-9\.]/g,''));var yn=parseFloat(y.replace(/[^0-9\.]/g,''));if(!isNaN(xn)&&!isNaN(yn)){x=xn;y=yn;}if(x<y)return asc?-1:1; if(x>y)return asc?1:-1; return 0;});rows.forEach(r=>tbody.appendChild(r));table.dataset.asc=asc;};function filterTables(){var q=document.getElementById('filter-q').value.toLowerCase();var rsel=document.getElementById('filter-relevance').value;var tables=document.querySelectorAll('table.sortable');tables.forEach(table=>{Array.from(table.tBodies[0].rows).forEach(row=>{if(row.classList.contains('hidden-text'))return;var text=(row.cells[2]?.innerText||'')+' '+(row.cells[7]?.innerText||'')+' '+(row.cells[3]?.innerText||'');var rel=(row.cells[5]?.innerText||'').toLowerCase();var ok=true; if(q && text.toLowerCase().indexOf(q)===-1) ok=false; if(rsel==='true'&&rel!=='true') ok=false; if(rsel==='false'&&rel!=='false') ok=false; row.style.display=ok?'':'none';});});}</script><style>body{font-family:Segoe UI,Arial,sans-serif;background:#f4f6fa;color:#1f1f1f;margin:0;padding:20px;}h1,h2{font-family:Inter,Segoe UI,Arial,sans-serif;}table{width:100%;border-collapse:collapse;margin-bottom:20px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.08);}th,td{border:1px solid #d6dde6;padding:8px;text-align:left;}th{background:#1f497d;color:#fff;cursor:pointer;position:relative;}th:hover{background:#16406b;}tr:nth-child(even){background:#f9fbff;}button{background:#1f4e79;color:#fff;border:none;border-radius:4px;padding:5px 9px;cursor:pointer;}button:hover{background:#12325a;} .controls{margin:0 0 10px;display:flex;gap:8px;flex-wrap:wrap;} .controls input,.controls select{padding:6px 8px;border-radius:4px;border:1px solid #ccc;}pre{background:#eef3ff;border:1px solid #cdd5e8;padding:10px;border-radius:5px;white-space:pre-wrap;word-break:break-word;}</style></head><body><h1>Edesky results (cyklo, navrh) — generated 2026-03-15T08:21:40.513704+00:00Z</h1>
+<div class="controls"><label>Filtr text: <input id="filter-q" type="text" oninput="filterTables()" placeholder="hledat..." /></label><label>Relevance: <select id="filter-relevance" onchange="filterTables()"><option value="all">vše</option><option value="true">jen true</option><option value="false">jen false</option></select></label></div><h2>Dashboard 109 Praha 1</h2>
+<table id="table-109" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-109',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-109',1)">Edesky ID</th><th onclick="sortTable('table-109',2)">Název zápisu</th><th onclick="sortTable('table-109',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-109',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-109',5)">Nalezené výrazy</th><th onclick="sortTable('table-109',6)">Příloha</th><th onclick="sortTable('table-109',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-03-03 19:54:31 +0100</td><td>22258170</td><td>Pozvánka a návrh Programu 32. zasedání Zastupitelstva MČ Praha 1 dne 10.03.2026</td><td>navrh</td><td>false</td><td></td><td>Pozvanka_32ZMC_10.03.2026_na_web.pdf</td><td><button onclick="toggle('text-109-22258170')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/22258170">odkaz</a></td></tr>
 <tr id="text-109-22258170" style="display:none"><td colspan="9"><pre>
 Městská část Praha 1 
@@ -75,8 +75,8 @@ ZMČ Praha 1.
 </pre><br><button onclick="toggle('text-109-22258170')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 110 Praha 2</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-110" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-110',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-110',1)">Edesky ID</th><th onclick="sortTable('table-110',2)">Název zápisu</th><th onclick="sortTable('table-110',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-110',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-110',5)">Nalezené výrazy</th><th onclick="sortTable('table-110',6)">Příloha</th><th onclick="sortTable('table-110',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-10 17:56:07 +0100</td><td>21562865</td><td>Návrh rozpočtu k vyvěšení 2026</td><td>navrh</td><td>false</td><td></td><td>Usneseni_RMC_c_84_09022026.pdf</td><td><button onclick="toggle('text-110-21562865')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21562865">odkaz</a></td></tr>
 <tr id="text-110-21562865" style="display:none"><td colspan="9"><pre>
 ukládá
@@ -143,8 +143,8 @@ Předkladatel: Jan Korseska, starosta
 </pre><br><button onclick="toggle('text-110-21562865')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 115 Praha 3</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-115" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-115',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-115',1)">Edesky ID</th><th onclick="sortTable('table-115',2)">Název zápisu</th><th onclick="sortTable('table-115',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-115',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-115',5)">Nalezené výrazy</th><th onclick="sortTable('table-115',6)">Příloha</th><th onclick="sortTable('table-115',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-16 17:25:11 +0100</td><td>21755555</td><td>VV - návrh OOP - stanovení přechodné úpravy provozu - jarní a podzimní KÚK 2026</td><td>navrh</td><td>false</td><td></td><td>KUK_2026_-_bloky_12_az_14_17_a_19.pdf</td><td><button onclick="toggle('text-115-21755555')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21755555">odkaz</a></td></tr>
 <tr id="text-115-21755555" style="display:none"><td colspan="9"><pre>
 Vyvěsit: 16.02.2026      Sejmout: 03.03.2026
@@ -177,8 +177,8 @@ Vyvěsit: 16.02.2026      Sejmout: 03.03.2026
 </pre><br><button onclick="toggle('text-115-21755555')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 117 Praha 5</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-117" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-117',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-117',1)">Edesky ID</th><th onclick="sortTable('table-117',2)">Název zápisu</th><th onclick="sortTable('table-117',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-117',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-117',5)">Nalezené výrazy</th><th onclick="sortTable('table-117',6)">Příloha</th><th onclick="sortTable('table-117',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-13 16:11:07 +0100</td><td>21672617</td><td>Atletická-ochranny pruh pro cyklisty-V2b,V14-návrh OOP-TSK-DZ-154/25</td><td>navrh</td><td>true</td><td>cyklist</td><td>1026845-25-Atleticka-ochranny_cyklopruh-V2b_V14.pdf</td><td><button onclick="toggle('text-117-21672617')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21672617">odkaz</a></td></tr>
 <tr id="text-117-21672617" style="display:none"><td colspan="9"><pre>
 Turistická
@@ -694,8 +694,8 @@ mm T TEZI
 </pre><br><button onclick="toggle('text-117-22573051')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 118 Praha 6</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-118" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-118',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-118',1)">Edesky ID</th><th onclick="sortTable('table-118',2)">Název zápisu</th><th onclick="sortTable('table-118',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-118',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-118',5)">Nalezené výrazy</th><th onclick="sortTable('table-118',6)">Příloha</th><th onclick="sortTable('table-118',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-09 22:41:15 +0100</td><td>21532192</td><td>K Noskovně-Nebušice-umístění SDZ B28-návrh OOP ke stanovení místní úpravy</td><td>navrh</td><td>false</td><td></td><td>ext_OOP_verze_na_desku_bec4ab39cf</td><td><button onclick="toggle('text-118-21532192')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21532192">odkaz</a></td></tr>
 <tr id="text-118-21532192" style="display:none"><td colspan="9"><pre>
  
@@ -4022,8 +4022,8 @@ IDDS: 48ia97h
 </pre><br><button onclick="toggle('text-118-22539523')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 119 Praha 7</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-119" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-119',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-119',1)">Edesky ID</th><th onclick="sortTable('table-119',2)">Název zápisu</th><th onclick="sortTable('table-119',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-119',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-119',5)">Nalezené výrazy</th><th onclick="sortTable('table-119',6)">Příloha</th><th onclick="sortTable('table-119',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr><td>2026-02-18 08:58:06 +0100</td><td>21818865</td><td>Verejna_vyhlaska_-_Dobrovskeho_zasobovani_box_cyklo.</td><td>cyklo</td><td>true</td><td>cyklo, cyklist</td><td>Verejna_vyhlaska_-_Dobrovskeho_zasobovani_box_cyklo (pdf, 401 KB)</td><td><button onclick="toggle('text-119-21818865')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21818865">odkaz</a></td></tr>
 <tr id="text-119-21818865" style="display:none"><td colspan="9"><pre>
  
@@ -4585,8 +4585,8 @@ PKD-O4 sektor Vo
 </pre><br><button onclick="toggle('text-119-21903526')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 120 Praha 8</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-120" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-120',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-120',1)">Edesky ID</th><th onclick="sortTable('table-120',2)">Název zápisu</th><th onclick="sortTable('table-120',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-120',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-120',5)">Nalezené výrazy</th><th onclick="sortTable('table-120',6)">Příloha</th><th onclick="sortTable('table-120',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-12 16:57:13 +0100</td><td>21634311</td><td>Vyvěšení- Oznámení návrhu opatření obecné povahy</td><td>navrh</td><td>false</td><td></td><td>MHMP_76977_2026_oznameni_navrhu_OOP.pdf</td><td><button onclick="toggle('text-120-21634311')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21634311">odkaz</a></td></tr>
 <tr id="text-120-21634311" style="display:none"><td colspan="9"><pre>
  
@@ -5569,8 +5569,8 @@ Za správnost vyhotovení odpovídá: Simona Ďurkovičová
 </pre><br><button onclick="toggle('text-120-22453596')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 121 Praha 9</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-121" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-121',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-121',1)">Edesky ID</th><th onclick="sortTable('table-121',2)">Název zápisu</th><th onclick="sortTable('table-121',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-121',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-121',5)">Nalezené výrazy</th><th onclick="sortTable('table-121',6)">Příloha</th><th onclick="sortTable('table-121',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr><td>2026-02-13 16:08:36 +0100</td><td>21672517</td><td>MČ Praha 14, prodloužení stanoviska: "Severovýchodní pražská cyklomagistrála - Et"</td><td>cyklo</td><td>true</td><td>cyklo, cyklist</td><td>26-3641.pdf</td><td><button onclick="toggle('text-121-21672517')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21672517">odkaz</a></td></tr>
 <tr id="text-121-21672517" style="display:none"><td colspan="9"><pre>
  
@@ -10658,8 +10658,8 @@ Litvínovská 600 – nástavba, ZŠ Novoborská – tělocvična, Gymnázium El
 </pre><br><button onclick="toggle('text-121-21900947')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 138 Praha 10</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-138" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-138',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-138',1)">Edesky ID</th><th onclick="sortTable('table-138',2)">Název zápisu</th><th onclick="sortTable('table-138',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-138',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-138',5)">Nalezené výrazy</th><th onclick="sortTable('table-138',6)">Příloha</th><th onclick="sortTable('table-138',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-03-05 11:56:26 +0100</td><td>22324700</td><td>návrh OOP - vydání povolení přechodné úpravy silnič. provozu pro KÚK</td><td>navrh</td><td>false</td><td></td><td>KUK_2026_jaro_-_priloha_2_-_seznam_bloku_ulic.pdf</td><td><button onclick="toggle('text-138-22324700')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/22324700">odkaz</a></td></tr>
 <tr id="text-138-22324700" style="display:none"><td colspan="9"><pre>
 příloha č. 2
@@ -11705,8 +11705,8 @@ pozemních komunikací a drah MHMP. V tomto seznamu proto nejsou uvedeny.
 </pre><br><button onclick="toggle('text-138-22324700')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 143 Praha 11</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-143" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-143',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-143',1)">Edesky ID</th><th onclick="sortTable('table-143',2)">Název zápisu</th><th onclick="sortTable('table-143',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-143',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-143',5)">Nalezené výrazy</th><th onclick="sortTable('table-143',6)">Příloha</th><th onclick="sortTable('table-143',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-11 14:28:24 +0100</td><td>21593988</td><td>návrh OOP SMÚP - Komárkova - nástupní plochy pro HZS</td><td>navrh</td><td>false</td><td></td><td>109 situace nastupni plochy pro hasice</td><td><button onclick="toggle('text-143-21593988')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21593988">odkaz</a></td></tr>
 <tr id="text-143-21593988" style="display:none"><td colspan="9"><pre>
 3323/7
@@ -13691,8 +13691,8 @@ stávající vodorovné dopravní značení
 </pre><br><button onclick="toggle('text-143-22564460')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 159 Mag.hl.m. Praha</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-159" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-159',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-159',1)">Edesky ID</th><th onclick="sortTable('table-159',2)">Název zápisu</th><th onclick="sortTable('table-159',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-159',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-159',5)">Nalezené výrazy</th><th onclick="sortTable('table-159',6)">Příloha</th><th onclick="sortTable('table-159',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-09 15:50:46 +0100</td><td>21521696</td><td>Upravený návrh programu jednání 31. zasedání Zastupitelstva hl. m. Prahy, které se koná dne 12. 2. 2026</td><td>navrh</td><td>false</td><td></td><td>OVO_Průvodka_upravený návrh programu2C4BE2CE.pdf</td><td><button onclick="toggle('text-159-21521696')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21521696">odkaz</a></td></tr>
 <tr id="text-159-21521696" style="display:none"><td colspan="9"><pre>
  
@@ -73604,8 +73604,8 @@ PKD-O4 sektor Kf
 </pre><br><button onclick="toggle('text-159-22604775')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 166 Praha 12</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-166" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-166',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-166',1)">Edesky ID</th><th onclick="sortTable('table-166',2)">Název zápisu</th><th onclick="sortTable('table-166',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-166',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-166',5)">Nalezené výrazy</th><th onclick="sortTable('table-166',6)">Příloha</th><th onclick="sortTable('table-166',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-26 17:27:02 +0100</td><td>22095405</td><td>Návrh OOP - blokové čištění jaro, podzim - TSK</td><td>navrh</td><td>false</td><td></td><td>blokové čištění TSK_2026 jaro_podzim.pdf</td><td><button onclick="toggle('text-166-22095405')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/22095405">odkaz</a></td></tr>
 <tr id="text-166-22095405" style="display:none"><td colspan="9"><pre>
 4
@@ -75001,8 +75001,8 @@ JOvNLIS
 </pre><br><button onclick="toggle('text-166-22300536')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 167 Praha 13</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-167" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-167',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-167',1)">Edesky ID</th><th onclick="sortTable('table-167',2)">Název zápisu</th><th onclick="sortTable('table-167',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-167',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-167',5)">Nalezené výrazy</th><th onclick="sortTable('table-167',6)">Příloha</th><th onclick="sortTable('table-167',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-26 19:46:16 +0100</td><td>22098777</td><td>Návrh opatření obecné povahy RP Střední Čechy – souhlas k některým stavebním činnostem v CHKO Kři…</td><td>navrh</td><td>false</td><td></td><td>Návrh opatření obecné povahy RP Střední Čechy – souhlas k některým stavebním činnostem v CHKO Kři…</td><td><button onclick="toggle('text-167-22098777')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/22098777">odkaz</a></td></tr>
 <tr id="text-167-22098777" style="display:none"><td colspan="9"><pre>
 Obje 
@@ -75706,8 +75706,8 @@ RSS kanál
 </pre><br><button onclick="toggle('text-167-22616554')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 169 Praha 14</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-169" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-169',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-169',1)">Edesky ID</th><th onclick="sortTable('table-169',2)">Název zápisu</th><th onclick="sortTable('table-169',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-169',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-169',5)">Nalezené výrazy</th><th onclick="sortTable('table-169',6)">Příloha</th><th onclick="sortTable('table-169',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-12 16:59:24 +0100</td><td>21634362</td><td>87, Veřejná vyhláška - Návrh Opatření obecné povahy - záplavové území</td><td>navrh</td><td>false</td><td></td><td>MHMP_76977_2026_oznameni_navrhu_OOP.pdf</td><td><button onclick="toggle('text-169-21634362')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21634362">odkaz</a></td></tr>
 <tr id="text-169-21634362" style="display:none"><td colspan="9"><pre>
  
@@ -76859,8 +76859,8 @@ Razítko, podpis orgánu, který potvrzuje vyvěšení a sejmutí oznámení.
 </pre><br><button onclick="toggle('text-169-21664313')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 171 Praha 17</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-171" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-171',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-171',1)">Edesky ID</th><th onclick="sortTable('table-171',2)">Název zápisu</th><th onclick="sortTable('table-171',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-171',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-171',5)">Nalezené výrazy</th><th onclick="sortTable('table-171',6)">Příloha</th><th onclick="sortTable('table-171',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-03-12 12:07:46 +0100</td><td>22564493</td><td>Návrh OOP - přechodná úprava silničního provozu pro KÚK Zličín</td><td>navrh</td><td>false</td><td></td><td>NOOP_013061_KUK_Zlicin.pdf</td><td><button onclick="toggle('text-171-22564493')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/22564493">odkaz</a></td></tr>
 <tr id="text-171-22564493" style="display:none"><td colspan="9"><pre>
 Sídlo: Žalanského 291/12b, 163 02 Praha 6 – Řepy
@@ -76999,8 +76999,8 @@ Městská policie Praha, Lýskova 1593, 150 00 Praha 5, služebna Zličín, IDDS
 </pre><br><button onclick="toggle('text-171-22564493')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 172 Praha 18</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-172" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-172',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-172',1)">Edesky ID</th><th onclick="sortTable('table-172',2)">Název zápisu</th><th onclick="sortTable('table-172',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-172',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-172',5)">Nalezené výrazy</th><th onclick="sortTable('table-172',6)">Příloha</th><th onclick="sortTable('table-172',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-11 17:34:35 +0100</td><td>21599200</td><td>Schválení návrhu rozpočtu na rok 2026 a střednědobého výhledu rozpočtu na období 2026-2029 příspěvkových organizací zřízených MČ Praha 18</td><td>navrh</td><td>false</td><td></td><td>Schvaleni navrhu rozpoctu na rok 2026 a SV rozpoctu na období 2026_2029 PO zrizenych MC Praha 18_an</td><td><button onclick="toggle('text-172-21599200')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21599200">odkaz</a></td></tr>
 <tr id="text-172-21599200" style="display:none"><td colspan="9"><pre>
 ZÁPIS Z 2. ZASEDÁNÍ
@@ -77286,8 +77286,8 @@ hospodaření
 </pre><br><button onclick="toggle('text-172-21599200')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 175 Praha 21</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-175" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-175',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-175',1)">Edesky ID</th><th onclick="sortTable('table-175',2)">Název zápisu</th><th onclick="sortTable('table-175',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-175',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-175',5)">Nalezené výrazy</th><th onclick="sortTable('table-175',6)">Příloha</th><th onclick="sortTable('table-175',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-10 19:28:42 +0100</td><td>21564523</td><td>Návrh k OOP změna dopravního značení Smržovská - Klánovice</td><td>navrh</td><td>false</td><td></td><td>250129-083945-34d_2025-01-29_2025-01-29.pdf</td><td><button onclick="toggle('text-175-21564523')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21564523">odkaz</a></td></tr>
 <tr id="text-175-21564523" style="display:none"><td colspan="9"><pre>
 Á p z j í j a u j g 
@@ -79253,8 +79253,8 @@ a p eunoJ
 </pre><br><button onclick="toggle('text-175-22453650')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 196 MČ Praha - Troja</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-196" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-196',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-196',1)">Edesky ID</th><th onclick="sortTable('table-196',2)">Název zápisu</th><th onclick="sortTable('table-196',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-196',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-196',5)">Nalezené výrazy</th><th onclick="sortTable('table-196',6)">Příloha</th><th onclick="sortTable('table-196',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-12 20:26:38 +0100</td><td>21640556</td><td>Oznámení o zveřejnění Návrhu rozp. MČ Praha-Troja na r.2026 a návrhu Střednědob. výhledu do r.2031</td><td>navrh</td><td>false</td><td></td><td>TR_00255-2026.pdf</td><td><button onclick="toggle('text-196-21640556')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21640556">odkaz</a></td></tr>
 <tr id="text-196-21640556" style="display:none"><td colspan="9"><pre>
 Č.j. TR 00255/2026 
@@ -79689,16 +79689,16 @@ Datum:
 </pre><br><button onclick="toggle('text-196-22096559')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 867 MČ Praha - Nebušice</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-867" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-867',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-867',1)">Edesky ID</th><th onclick="sortTable('table-867',2)">Název zápisu</th><th onclick="sortTable('table-867',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-867',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-867',5)">Nalezené výrazy</th><th onclick="sortTable('table-867',6)">Příloha</th><th onclick="sortTable('table-867',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-10 11:27:41 +0100</td><td>21552317</td><td>Veřejná vyhláška - oznámení o návrhu opatření obecné povahy</td><td>navrh</td><td>false</td><td></td><td>Situace dopravního značení</td><td><button onclick="toggle('text-867-21552317')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21552317">odkaz</a></td></tr>
 <tr id="text-867-21552317" style="display:none"><td colspan="9"><pre>
 
 </pre><br><button onclick="toggle('text-867-21552317')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 873 MČ Praha - Křeslice</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-873" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-873',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-873',1)">Edesky ID</th><th onclick="sortTable('table-873',2)">Název zápisu</th><th onclick="sortTable('table-873',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-873',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-873',5)">Nalezené výrazy</th><th onclick="sortTable('table-873',6)">Příloha</th><th onclick="sortTable('table-873',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-12 15:44:12 +0100</td><td>21633023</td><td>VV - oznámení o návrhu OOP - DZ na nově vybudované komunikaci, č.parc. 97-51, 273-144</td><td>navrh</td><td>false</td><td></td><td>VV - oznámení o návrhu OOP - DZ na nově vybudované komunikaci, č.parc. 97-51, 273-144</td><td><button onclick="toggle('text-873-21633023')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21633023">odkaz</a></td></tr>
 <tr id="text-873-21633023" style="display:none"><td colspan="9"><pre>
  
@@ -80120,8 +80120,8 @@ x
 </pre><br><button onclick="toggle('text-873-22336006')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 887 MČ Praha - Satalice</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-887" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-887',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-887',1)">Edesky ID</th><th onclick="sortTable('table-887',2)">Název zápisu</th><th onclick="sortTable('table-887',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-887',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-887',5)">Nalezené výrazy</th><th onclick="sortTable('table-887',6)">Příloha</th><th onclick="sortTable('table-887',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-11 17:31:18 +0100</td><td>21599072</td><td>Oznámení o sloučeném společném jednání a veřejném projednání návrhu Změny č. 17 Zásad územního rozvoje Středočeského kraje</td><td>navrh</td><td>false</td><td></td><td>Osobní údaje</td><td><button onclick="toggle('text-887-21599072')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21599072">odkaz</a></td></tr>
 <tr id="text-887-21599072" style="display:none"><td colspan="9"><pre>
  
@@ -80292,8 +80292,8 @@ iMunis eDeska © 2026 – Prohlášení o
 </pre><br><button onclick="toggle('text-887-21599072')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 889 MČ Praha - Běchovice</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-889" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-889',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-889',1)">Edesky ID</th><th onclick="sortTable('table-889',2)">Název zápisu</th><th onclick="sortTable('table-889',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-889',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-889',5)">Nalezené výrazy</th><th onclick="sortTable('table-889',6)">Příloha</th><th onclick="sortTable('table-889',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-11 19:56:47 +0100</td><td>21602046</td><td>Návrh opatření obecné povahy - oznámení zvěřejněné veř. vyhláškou - Rokytka a jejich přítoků, vč. Příloh_(18/26)</td><td>navrh</td><td>false</td><td></td><td>DVL_05_01_Qn_ZM25.pdf</td><td><button onclick="toggle('text-889-21602046')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21602046">odkaz</a></td></tr>
 <tr id="text-889-21602046" style="display:none"><td colspan="9"><pre>
 1
@@ -127960,8 +127960,8 @@ Hranice katastrálníh o územ í
 </pre><br><button onclick="toggle('text-889-21602046')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 890 MČ Praha - Klánovice</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-890" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-890',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-890',1)">Edesky ID</th><th onclick="sortTable('table-890',2)">Název zápisu</th><th onclick="sortTable('table-890',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-890',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-890',5)">Nalezené výrazy</th><th onclick="sortTable('table-890',6)">Příloha</th><th onclick="sortTable('table-890',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-11 18:34:00 +0100</td><td>21600438</td><td>Návrh - opatření obecné povahy, oznámení zveřejněné veřejnou vyhláškou</td><td>navrh</td><td>false</td><td></td><td>zde k nahlédnutí</td><td><button onclick="toggle('text-890-21600438')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21600438">odkaz</a></td></tr>
 <tr id="text-890-21600438" style="display:none"><td colspan="9"><pre>
 1
@@ -132247,8 +132247,8 @@ al
 </pre><br><button onclick="toggle('text-890-22460404')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 893 MČ Praha - Kolovraty</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-893" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-893',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-893',1)">Edesky ID</th><th onclick="sortTable('table-893',2)">Název zápisu</th><th onclick="sortTable('table-893',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-893',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-893',5)">Nalezené výrazy</th><th onclick="sortTable('table-893',6)">Příloha</th><th onclick="sortTable('table-893',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-12 04:45:27 +0100</td><td>21615205</td><td>Oznámení návrhu opatření obecné povahy-stanovení záplavových územ vodního toku-Rokytka a její přítoky</td><td>navrh</td><td>false</td><td></td><td>Oznámení návrhu opatření obecné povahy-stanovení záplavových územ vodního toku-Rokytka a její přítoky</td><td><button onclick="toggle('text-893-21615205')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21615205">odkaz</a></td></tr>
 <tr id="text-893-21615205" style="display:none"><td colspan="9"><pre>
  
@@ -132527,8 +132527,8 @@ iMunis eDeska © 2026 – Prohlášení o
 </pre><br><button onclick="toggle('text-893-22509377')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 1043 Okres Praha-východ</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-1043" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-1043',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-1043',1)">Edesky ID</th><th onclick="sortTable('table-1043',2)">Název zápisu</th><th onclick="sortTable('table-1043',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-1043',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-1043',5)">Nalezené výrazy</th><th onclick="sortTable('table-1043',6)">Příloha</th><th onclick="sortTable('table-1043',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-09 16:27:46 +0100</td><td>21522570</td><td>VV - oznámení - Zahájení sloučeného společného jednání a veřejného projednání návrhu změny č.3 územního plánu Louňovice</td><td>navrh</td><td>false</td><td></td><td>Louňovice - text.výrok</td><td><button onclick="toggle('text-1043-21522570')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21522570">odkaz</a></td></tr>
 <tr id="text-1043-21522570" style="display:none"><td colspan="9"><pre>
  
@@ -164669,8 +164669,8 @@ Závazky (v tis. Kč)
 </pre><br><button onclick="toggle('text-1043-22608816')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 1044 Okres Praha-západ</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-1044" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-1044',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-1044',1)">Edesky ID</th><th onclick="sortTable('table-1044',2)">Název zápisu</th><th onclick="sortTable('table-1044',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-1044',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-1044',5)">Nalezené výrazy</th><th onclick="sortTable('table-1044',6)">Příloha</th><th onclick="sortTable('table-1044',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-16 13:37:08 +0100</td><td>21750485</td><td>Návrh stanovení místní úpravy provozu na pozemcích parc. č. 324 a 175/1 v k. ú. Letky, Libčice nad Vltavou</td><td>navrh</td><td>false</td><td></td><td>Libcice n.V., nova MK parc. 1751-1,324, Etiam Dei Gratia.pdf</td><td><button onclick="toggle('text-1044-21750485')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21750485">odkaz</a></td></tr>
 <tr id="text-1044-21750485" style="display:none"><td colspan="9"><pre>
 Jana 
@@ -181502,8 +181502,8 @@ vyšší soudní úředník
 </pre><br><button onclick="toggle('text-1044-22540457')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 1186 MČ Praha - Čakovice</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-1186" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-1186',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-1186',1)">Edesky ID</th><th onclick="sortTable('table-1186',2)">Název zápisu</th><th onclick="sortTable('table-1186',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-1186',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-1186',5)">Nalezené výrazy</th><th onclick="sortTable('table-1186',6)">Příloha</th><th onclick="sortTable('table-1186',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-11 20:32:37 +0100</td><td>21602640</td><td>Veřejná vyhláška - Oznámení o návrhu opatření obecné povahy pro stanovení místní úpravy provozu na komunikaci Polabská v Praze Miškovicích</td><td>navrh</td><td>false</td><td></td><td>Veřejná vyhláška - Oznámení o návrhu opatření obecné povahy pro stanovení místní úpravy provozu na komunikaci Polabská v Praze Miškovicích</td><td><button onclick="toggle('text-1186-21602640')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21602640">odkaz</a></td></tr>
 <tr id="text-1186-21602640" style="display:none"><td colspan="9"><pre>
  
@@ -182247,8 +182247,8 @@ Vytisknout
 </pre><br><button onclick="toggle('text-1186-22324421')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 2127 Obec Všestary (Praha-východ)</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-2127" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-2127',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-2127',1)">Edesky ID</th><th onclick="sortTable('table-2127',2)">Název zápisu</th><th onclick="sortTable('table-2127',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-2127',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-2127',5)">Nalezené výrazy</th><th onclick="sortTable('table-2127',6)">Příloha</th><th onclick="sortTable('table-2127',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-03-11 20:55:53 +0100</td><td>22538841</td><td>Návrh závěrečného účtu obce za rok 2025.</td><td>navrh</td><td>true</td><td>cyklo</td><td>Zpráva_o_přezkoumání_hospodaření_obce_2025</td><td><button onclick="toggle('text-2127-22538841')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/22538841">odkaz</a></td></tr>
 <tr id="text-2127-22538841" style="display:none"><td colspan="9"><pre>
  
@@ -182818,8 +182818,8 @@ datové schránky.
 </pre><br><button onclick="toggle('text-2127-22538841')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 2723 Obec Struhařov (Praha-východ)</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-2723" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-2723',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-2723',1)">Edesky ID</th><th onclick="sortTable('table-2723',2)">Název zápisu</th><th onclick="sortTable('table-2723',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-2723',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-2723',5)">Nalezené výrazy</th><th onclick="sortTable('table-2723',6)">Příloha</th><th onclick="sortTable('table-2723',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-09 16:27:46 +0100</td><td>21522570</td><td>VV - oznámení - Zahájení sloučeného společného jednání a veřejného projednání návrhu změny č.3 územního plánu Louňovice</td><td>navrh</td><td>false</td><td></td><td>Louňovice - text.výrok</td><td><button onclick="toggle('text-2723-21522570')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21522570">odkaz</a></td></tr>
 <tr id="text-2723-21522570" style="display:none"><td colspan="9"><pre>
  
@@ -184024,8 +184024,8 @@ ve 3. odrážce se ruší text: RP1 a nahrazuje se textem: U.1
 </pre><br><button onclick="toggle('text-2723-21522570')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 3366 Obec Lhota (Praha-východ)</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-3366" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-3366',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-3366',1)">Edesky ID</th><th onclick="sortTable('table-3366',2)">Název zápisu</th><th onclick="sortTable('table-3366',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-3366',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-3366',5)">Nalezené výrazy</th><th onclick="sortTable('table-3366',6)">Příloha</th><th onclick="sortTable('table-3366',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-02-16 18:49:31 +0100</td><td>21758698</td><td>Návrh závěrečného účtu obce Lhota za rok 2025</td><td>navrh</td><td>false</td><td></td><td>Zpráva o výsledku přezkoumání 2025.pdf</td><td><button onclick="toggle('text-3366-21758698')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/21758698">odkaz</a></td></tr>
 <tr id="text-3366-21758698" style="display:none"><td colspan="9"><pre>
  
@@ -184530,8 +184530,8 @@ datové schránky.
 </pre><br><button onclick="toggle('text-3366-21758698')">Zpět</button></td></tr>
 </table>
 <h2>Dashboard 4442 Obec Borek (Praha-východ)</h2>
-<table border=1 cellpadding=6>
-<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>
+<table id="table-4442" class="sortable" data-asc="false" border=1 cellpadding=6>
+<tr><th onclick="sortTable('table-4442',0)">Datum vytvoření 🔽</th><th onclick="sortTable('table-4442',1)">Edesky ID</th><th onclick="sortTable('table-4442',2)">Název zápisu</th><th onclick="sortTable('table-4442',3)">Vyhledaná klíčová slova</th><th onclick="sortTable('table-4442',4)">Relevantní pro cyklistiku</th><th onclick="sortTable('table-4442',5)">Nalezené výrazy</th><th onclick="sortTable('table-4442',6)">Příloha</th><th onclick="sortTable('table-4442',7)">Text přílohy</th><th>Odkaz</th></tr>
 <tr style="font-weight:bold"><td>2026-03-12 21:46:29 +0100</td><td>22581443</td><td>Návrh závěrečného účtu za rok 2025</td><td>navrh</td><td>false</td><td></td><td>Návrh závěrečného účtu za rok 2025</td><td><button onclick="toggle('text-4442-22581443')">Zobrazit</button></td><td><a href="https://edesky.cz/dokument/22581443">odkaz</a></td></tr>
 <tr id="text-4442-22581443" style="display:none"><td colspan="9"><pre>
           
