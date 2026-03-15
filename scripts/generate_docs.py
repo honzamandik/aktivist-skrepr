@@ -131,7 +131,8 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
         if kw_title:
             f.write(f" ({kw_title})")
         f.write("</title>")
-        f.write("<script>function toggle(id){var e=document.getElementById(id);if(e.style.display=='none'){e.style.display='table-row';}else{e.style.display='none';}}</script>")
+        f.write("<script>function toggle(id){var e=document.getElementById(id);if(e.style.display=='none'){e.style.display='table-row';}else{e.style.display='none';}}function sortTable(tableId,col){var table=document.getElementById(tableId);var tbody=table.tBodies[0];var rows=Array.from(tbody.rows).filter(r=>!r.classList.contains('hidden-text'));var asc=table.dataset.asc==='true'?false:true;rows.sort((a,b)=>{var x=a.cells[col].innerText.trim().toLowerCase();var y=b.cells[col].innerText.trim().toLowerCase();var xn=parseFloat(x.replace(/[^0-9\.]/g,''));var yn=parseFloat(y.replace(/[^0-9\.]/g,''));if(!isNaN(xn)&&!isNaN(yn)){x=xn;y=yn;}if(x<y)return asc?-1:1; if(x>y)return asc?1:-1; return 0;});rows.forEach(r=>tbody.appendChild(r));table.dataset.asc=asc;};function filterTables(){var q=document.getElementById('filter-q').value.toLowerCase();var rsel=document.getElementById('filter-relevance').value;var tables=document.querySelectorAll('table.sortable');tables.forEach(table=>{Array.from(table.tBodies[0].rows).forEach(row=>{if(row.classList.contains('hidden-text'))return;var text=(row.cells[2]?.innerText||'')+' '+(row.cells[7]?.innerText||'')+' '+(row.cells[3]?.innerText||'');var rel=(row.cells[5]?.innerText||'').toLowerCase();var ok=true; if(q && text.toLowerCase().indexOf(q)===-1) ok=false; if(rsel==='true'&&rel!=='true') ok=false; if(rsel==='false'&&rel!=='false') ok=false; row.style.display=ok?'':'none';});});}</script>")
+        f.write("<style>body{font-family:Segoe UI,Arial,sans-serif;background:#f4f6fa;color:#1f1f1f;margin:0;padding:20px;}h1,h2{font-family:Inter,Segoe UI,Arial,sans-serif;}table{width:100%;border-collapse:collapse;margin-bottom:20px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.08);}th,td{border:1px solid #d6dde6;padding:8px;text-align:left;}th{background:#1f497d;color:#fff;cursor:pointer;position:relative;}th:hover{background:#16406b;}tr:nth-child(even){background:#f9fbff;}button{background:#1f4e79;color:#fff;border:none;border-radius:4px;padding:5px 9px;cursor:pointer;}button:hover{background:#12325a;} .controls{margin:0 0 10px;display:flex;gap:8px;flex-wrap:wrap;} .controls input,.controls select{padding:6px 8px;border-radius:4px;border:1px solid #ccc;}pre{background:#eef3ff;border:1px solid #cdd5e8;padding:10px;border-radius:5px;white-space:pre-wrap;word-break:break-word;}</style>")
         f.write("</head><body>")
         # use timezone-aware UTC timestamp to avoid deprecation warnings
         f.write(f"<h1>Edesky results")
@@ -143,11 +144,13 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
         groups = {}
         for r in rows:
             groups.setdefault((r['dashboard'], r.get('dashboard_name', '')), []).append(r)
+        # filter controls
+        f.write('<div class="controls"><label>Filtr text: <input id="filter-q" type="text" oninput="filterTables()" placeholder="hledat..." /></label><label>Relevance: <select id="filter-relevance" onchange="filterTables()"><option value="all">vše</option><option value="true">jen true</option><option value="false">jen false</option></select></label></div>')
         # sort dashboard keys numerically
         for (did, dname) in sorted(groups.keys(), key=lambda x: x[0]):
             f.write(f"<h2>Dashboard {did} {dname}</h2>\n")
-            f.write("<table border=1 cellpadding=6>\n")
-            f.write("<tr><th>Datum vytvoření</th><th>Edesky ID</th><th>Název zápisu</th><th>Vyhledaná klíčová slova</th><th>Relevantní pro cyklistiku</th><th>Nalezené cyklistické výrazy v textu</th><th>Příloha</th><th>Text přílohy</th><th>Odkaz</th></tr>\n")
+            f.write(f"<table id=\"table-{did}\" class=\"sortable\" data-asc=\"false\" border=1 cellpadding=6>\n")
+            f.write(f"<tr><th onclick=\"sortTable('table-{did}',0)\">Datum vytvoření 🔽</th><th onclick=\"sortTable('table-{did}',1)\">Edesky ID</th><th onclick=\"sortTable('table-{did}',2)\">Název zápisu</th><th onclick=\"sortTable('table-{did}',3)\">Vyhledaná klíčová slova</th><th onclick=\"sortTable('table-{did}',4)\">Relevantní pro cyklistiku</th><th onclick=\"sortTable('table-{did}',5)\">Nalezené výrazy</th><th onclick=\"sortTable('table-{did}',6)\">Příloha</th><th onclick=\"sortTable('table-{did}',7)\">Text přílohy</th><th>Odkaz</th></tr>\n")
             # sort rows by created date string
             for r in sorted(groups[(did, dname)], key=lambda r: r['created_at']):
                 is_new = r['edesky_id'] not in old_entries
