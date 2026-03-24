@@ -63,7 +63,7 @@ def generate(dash_from=59, dash_to=59, api_key=None, keywords=None, created_from
         raise SystemExit("Set EDESKY_API_KEY in environment or pass api_key to generate()")
     ensure_out_dir()
 
-    # parse keywords into list; supply default set if none provided
+    # parse keywords into list; supply default set if none providedhi
     if keywords is None:
         # reduced default set per user request
         kw_list = ["cyklo", "navrh"]
